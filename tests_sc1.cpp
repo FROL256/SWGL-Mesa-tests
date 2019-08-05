@@ -720,7 +720,7 @@ void demo04_pyramid_and_cube_3d(int width, int height, float rtri, float rquad)
   glLoadIdentity();									// Reset The Current Modelview Matrix
   glTranslatef(-1.5f, 0.0f, -6.0f);						// Move Left 1.5 Units And Into The Screen 6.0
   glRotatef(rtri, 0.0f, 1.0f, 0.0f);						// Rotate The Triangle On The Y axis ( NEW )
-  glBegin(GL_TRIANGLES);								// Start Drawing A Triangle
+  glBegin(GL_LINE_STRIP);								// Start Drawing A Triangle
   glColor3f(1.0f, 0.0f, 0.0f);						// Red
   glVertex3f(0.0f, 1.0f, 0.0f);					// Top Of Triangle (Front)
   glColor3f(0.0f, 1.0f, 0.0f);						// Green
@@ -751,7 +751,7 @@ void demo04_pyramid_and_cube_3d(int width, int height, float rtri, float rquad)
   glLoadIdentity();									// Reset The Current Modelview Matrix
   glTranslatef(1.5f, 0.0f, -7.0f);						// Move Right 1.5 Units And Into The Screen 7.0
   glRotatef(rquad, 1.0f, 1.0f, 1.0f);					// Rotate The Quad On The X axis ( NEW )
-  glBegin(GL_QUADS);									// Draw A Quad
+  glBegin(GL_LINE_STRIP);									// Draw A Quad
   glColor3f(0.0f, 1.0f, 0.0f);						// Set The Color To Green
   glVertex3f(1.0f, 1.0f, -1.0f);					// Top Right Of The Quad (Top)
   glVertex3f(-1.0f, 1.0f, -1.0f);					// Top Left Of The Quad (Top)
@@ -1049,8 +1049,24 @@ void demo03_many_small_dynamic_triangles()
   glDisable(GL_TEXTURE_2D);
 
   glColor4f(1, 1, 1, 1);
-
-
+ 
+  //for(int i=0;i<N;i++)
+  //{
+  //  glBegin(GL_LINE_STRIP);
+  //  glColor3fv(colors.data()    + 9*i + 0);
+  //  glVertex2fv(vertices.data() + 6*i + 0);
+//
+  //  glColor3fv(colors.data()    + 9*i + 3);
+  //  glVertex2fv(vertices.data() + 6*i + 2);
+//
+  //  glColor3fv(colors.data()    + 9*i + 6);
+  //  glVertex2fv(vertices.data() + 6*i + 4);
+//
+  //  glColor3fv(colors.data()    + 9*i + 0);
+  //  glVertex2fv(vertices.data() + 6*i + 0);
+  //  glEnd();
+  //}
+  
   glEnableClientState(GL_COLOR_ARRAY);
   glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -1061,7 +1077,7 @@ void demo03_many_small_dynamic_triangles()
 
   glDisableClientState(GL_COLOR_ARRAY);
   glDisableClientState(GL_VERTEX_ARRAY);
-
+  
 }
 
 

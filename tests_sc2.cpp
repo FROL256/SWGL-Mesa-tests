@@ -595,7 +595,7 @@ void demo24_draw_elements_terrain(int width, int height, float algle1, float ang
   //
   glPushMatrix();
   glScalef(1.0f / 16.0f, 1.0f, 1.0f / 16.0f);
-  glDrawElements(GL_TRIANGLES, triTop, GL_UNSIGNED_INT, &triInd[0]);
+  glDrawElements(GL_LINES, triTop, GL_UNSIGNED_INT, &triInd[0]);
   glPopMatrix();
 
 }
@@ -692,7 +692,22 @@ void demo25_teapot(int width, int height, float algle1, float angle2)
   glEnable(GL_CULL_FACE);
 
   glPushMatrix();
-    glDrawElements(GL_TRIANGLES, data.getIndicesNumber(), GL_UNSIGNED_INT, data.getTriangleVertexIndicesArray());
+    //glDrawElements(GL_LINE_STRIP, data.getIndicesNumber(), GL_UNSIGNED_INT, data.getTriangleVertexIndicesArray());
+
+  for(int i=0;i< data.getIndicesNumber()/3 ;i++)
+  {
+    glBegin(GL_LINE_STRIP);
+    glTexCoord2fv(data.getVertexTexcoordFloat2Array() + 6*i + 0);
+    glVertex4fv (data.getVertexPositionsFloat4Array() + 12*i + 0);
+    glTexCoord2fv(data.getVertexTexcoordFloat2Array() + 6*i + 2);
+    glVertex4fv (data.getVertexPositionsFloat4Array() + 12*i + 4);
+    glTexCoord2fv(data.getVertexTexcoordFloat2Array() + 6*i + 2);
+    glVertex4fv (data.getVertexPositionsFloat4Array() + 12*i + 8);
+    glTexCoord2fv(data.getVertexTexcoordFloat2Array() + 6*i + 0);
+    glVertex4fv (data.getVertexPositionsFloat4Array() + 12*i + 0);
+    glEnd();
+  }
+
   glPopMatrix();
 
   // draw floor
@@ -703,12 +718,18 @@ void demo25_teapot(int width, int height, float algle1, float angle2)
     glTranslatef(0.0f, 3.0f, 0.0f);
     glScalef(3.0f, 3.0f, 3.0f);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_LINE_STRIP);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
     glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, -1.0f, -1.0f);
     glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
     glEnd();
+
+    glBegin(GL_LINES);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+    glEnd();
+
   glPopMatrix();
 
 }
@@ -810,7 +831,22 @@ void demo26_teapots9(int width, int height, float algle1, float angle2)
       glTranslatef(0.0f + 2.0f*float(i), 0.0f, 0.0f + 2.0f*float(j));
       glScalef(0.5f, 0.5f, 0.5f);
 
-      glDrawElements(GL_TRIANGLES, data.getIndicesNumber(), GL_UNSIGNED_INT, data.getTriangleVertexIndicesArray());
+      //glDrawElements(GL_TRIANGLES, data.getIndicesNumber(), GL_UNSIGNED_INT, data.getTriangleVertexIndicesArray());
+      for(int i=0;i< data.getIndicesNumber()/3 ;i++)
+      {
+        glBegin(GL_LINE_STRIP);
+        glTexCoord2fv(data.getVertexTexcoordFloat2Array() + 6*i + 0);
+        glVertex4fv (data.getVertexPositionsFloat4Array() + 12*i + 0);
+        glTexCoord2fv(data.getVertexTexcoordFloat2Array() + 6*i + 2);
+        glVertex4fv (data.getVertexPositionsFloat4Array() + 12*i + 4);
+        glTexCoord2fv(data.getVertexTexcoordFloat2Array() + 6*i + 2);
+        glVertex4fv (data.getVertexPositionsFloat4Array() + 12*i + 8);
+        glTexCoord2fv(data.getVertexTexcoordFloat2Array() + 6*i + 0);
+        glVertex4fv (data.getVertexPositionsFloat4Array() + 12*i + 0);
+        glEnd();
+      }
+
+
       glPopMatrix();
     }
   }
@@ -823,12 +859,18 @@ void demo26_teapots9(int width, int height, float algle1, float angle2)
   glTranslatef(0.0f, 3.0f, 0.0f);
   glScalef(3.0f, 3.0f, 3.0f);
 
-  glBegin(GL_QUADS);
+  glBegin(GL_LINE_STRIP);
   glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
   glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
   glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, -1.0f, -1.0f);
   glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
   glEnd();
+
+  glBegin(GL_LINES);
+  glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
+  glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+  glEnd();
+
   glPopMatrix();
 
 }
@@ -1043,7 +1085,7 @@ void test18_line_points()
 
 void myglUnitCube()
 {
-  glBegin(GL_QUADS);
+  glBegin(GL_LINE_STRIP);
   // Front Face
   glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
   glTexCoord2f(1.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
@@ -1081,7 +1123,7 @@ void myglColoredPyramid()
 {
   glDisable(GL_TEXTURE_2D);
 
-  glBegin(GL_TRIANGLES);								// Start Drawing A Triangle
+  glBegin(GL_LINE_STRIP);								// Start Drawing A Triangle
   glColor3f(1.0f, 0.0f, 0.0f);						// Red
   glVertex3f(0.0f, 1.0f, 0.0f);					// Top Of Triangle (Front)
   glColor3f(0.0f, 1.0f, 0.0f);						// Green
@@ -1113,7 +1155,7 @@ void myglColoredCube()
 {
   glDisable(GL_TEXTURE_2D);
 
-  glBegin(GL_QUADS);									// Draw A Quad
+  glBegin(GL_LINE_STRIP);									// Draw A Quad
   glColor3f(0.0f, 1.0f, 0.0f);						// Set The Color To Green
   glVertex3f(1.0f, 1.0f, -1.0f);					// Top Right Of The Quad (Top)
   glVertex3f(-1.0f, 1.0f, -1.0f);					// Top Left Of The Quad (Top)
@@ -1232,7 +1274,7 @@ void demo19_cubes(int width, int height, float algle1, float angle2)
     glTranslatef(0.0f, 6.0f, 0.0f);
     glScalef(10.0f, 10.0f, 10.0f);
 
-    glBegin(GL_QUADS);
+    glBegin(GL_LINE_STRIP);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, 1.0f);
     glTexCoord2f(0.0f, 0.0f); glVertex3f(1.0f, -1.0f, 1.0f);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(1.0f, -1.0f, -1.0f);
